@@ -1,0 +1,11 @@
+FROM openjdk:11
+
+WORKDIR /home/server/files
+
+COPY ./target/smkt-files-0.0.1.jar ./app.jar
+
+COPY ./waitForEureka.sh ./run.sh
+
+EXPOSE 4050
+
+CMD [ "./run.sh", "localhost" ,"java","-jar", "app.jar"]
