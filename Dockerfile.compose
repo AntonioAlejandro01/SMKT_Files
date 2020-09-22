@@ -1,6 +1,6 @@
 FROM openjdk:11
 
-WORKDIR /home/server/files
+WORKDIR /opt/server/files
 
 COPY ./target/smkt-files-0.0.1.jar ./app.jar
 
