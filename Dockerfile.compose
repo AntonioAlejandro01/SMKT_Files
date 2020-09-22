@@ -8,4 +8,4 @@ COPY ./waitForEureka.sh ./run.sh
 
 EXPOSE 4050
 
-CMD [ "./run.sh", "localhost" ,"java","-jar", "app.jar"]
+CMD [ "./run.sh", "172.0.0.3" ,"java","-jar", "app.jar"]
