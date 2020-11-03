@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "5ff4d347-29e4-413f-a53a-743ad42df4cb",
+		"name": "SMKT_Files",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Excel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n      \"id\": \"asd675f4sdfsda789\",\n      \"name\": \"Test\",\n      \"category\": 2,\n      \"codeKey\" : \"234j2hg34kjh23\",\n      \"price\": 0.90,\n      \"amount\": 5\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4450/excel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4450",
+					"path": [
+						"excel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recipe PDF",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"1\",\n    \"title\": \"Test Recipe\",\n    \"ingredients\": [\n        {\n            \"name\": \"test Ingredient\",\n            \"amount\": \"2 kg\"\n        }\n    ],\n    \"steps\": [\n        \"First Step\",\n        \"Second Step\"\n    ],\n    \"time\": 0.5\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4450/pdf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4450",
+					"path": [
+						"pdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cookbook (All recipes)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": \"1\",\n        \"title\": \"Test Recipe\",\n        \"ingredients\": [\n            {\n                \"name\": \"test Ingredient\",\n                \"amount\": \"2 kg\"\n            }\n        ],\n        \"steps\": [\n            \"First Step\",\n            \"Second Step\"\n        ],\n        \"time\": 0.5\n    },\n    {\n        \"id\": \"2\",\n        \"title\": \"Test Recipe 2\",\n        \"ingredients\": [\n            {\n                \"name\": \"test Ingredient 2\",\n                \"amount\": \"22 kg\"\n            }\n        ],\n        \"steps\": [\n            \"First Step 2\",\n            \"Second Step 2\"\n        ],\n        \"time\": 1\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4450/pdf/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4450",
+					"path": [
+						"pdf",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

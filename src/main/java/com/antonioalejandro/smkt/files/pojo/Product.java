@@ -3,8 +3,8 @@ package com.antonioalejandro.smkt.files.pojo;
 import java.util.Arrays;
 import java.util.List;
 
-import com.antonioalejandro.smkt.files.excel.ExcelData;
-import com.antonioalejandro.smkt.files.excel.interfaces.IExcelObject;
+import com.antonioalejandro.utils.excel.ExcelData;
+import com.antonioalejandro.utils.excel.interfaces.IExcelObject;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -85,7 +85,7 @@ public class Product implements IExcelObject {
 	}
 
 	@Override
-	public List<ExcelData> getFields() {
+	public List<ExcelData> obtainFields() {
 		return Arrays.asList(new ExcelData(id), new ExcelData(name), new ExcelData(CATEGORIES[category]),
 				new ExcelData(codeKey), new ExcelData(price), new ExcelData(amount), new ExcelData(price * amount));
 	}
