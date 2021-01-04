@@ -1,3 +1,10 @@
+/*
+ * @Author AntonioAlejandro01
+ * 
+ * @link http://antonioalejandro.com
+ * @link https://github.com/AntonioAlejandro01/SMKT_Users
+ * 
+ */
 package com.antonioalejandro.smkt.files.pdf;
 
 import java.io.ByteArrayOutputStream;
@@ -7,6 +14,7 @@ import com.antonioalejandro.smkt.files.pojo.Recipe;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
@@ -15,15 +23,32 @@ import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * The Class Pdf.
+ */
 public class Pdf {
+	
+	/** The Constant chapterFont. */
 	private static final Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLDITALIC);
+	
+	/** The Constant paragraphFont. */
 	private static final Font paragraphFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
 
+	/** The Constant categoryFont. */
 	private static final Font categoryFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+	
+	/** The Constant subcategoryFont. */
 	private static final Font subcategoryFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
-	// private static final Font blueFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
 
-	public byte[] processPdf(final PdfMetadata metadata, final Recipe recipe) throws Exception {
+	/**
+	 * Process pdf.
+	 *
+	 * @param metadata the metadata
+	 * @param recipe the recipe
+	 * @return the byte[]
+	 * @throws DocumentException the document exception
+	 */
+	public byte[] processPdf(final PdfMetadata metadata, final Recipe recipe) throws DocumentException {
 		final Document document = new Document();
 		final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		PdfWriter.getInstance(document, byteArrayOutputStream);
@@ -34,7 +59,15 @@ public class Pdf {
 		return byteArrayOutputStream.toByteArray();
 	}
 
-	public byte[] processPdf(final PdfMetadata metadata, final Recipe[] recipes) throws Exception {
+	/**
+	 * Process pdf.
+	 *
+	 * @param metadata the metadata
+	 * @param recipes the recipes
+	 * @return the byte[]
+	 * @throws DocumentException the document exception
+	 */
+	public byte[] processPdf(final PdfMetadata metadata, final Recipe[] recipes) throws DocumentException {
 		final Document document = new Document();
 		final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		PdfWriter.getInstance(document, byteArrayOutputStream);
@@ -47,6 +80,12 @@ public class Pdf {
 		return byteArrayOutputStream.toByteArray();
 	}
 
+	/**
+	 * Creates the page.
+	 *
+	 * @param recipe the recipe
+	 * @return the chapter
+	 */
 	private Chapter createPage(final Recipe recipe) {
 		final Chunk title = new Chunk(recipe.getTitle(), chapterFont);
 		final Paragraph paragraph = new Paragraph(title);
@@ -54,25 +93,37 @@ public class Pdf {
 		final Chapter page = new Chapter(paragraph, 1);
 
 		page.setNumberDepth(0);
-		page.add(new Paragraph("Time: " + recipe.getTime() + "h", subcategoryFont));
-		page.add(new Paragraph("Ingredientes", categoryFont));
+		page.add(new Paragraph(String.format("Time: %s h", recipe.getTime()), subcategoryFont));
+		page.add(new Paragraph("Ingredients", categoryFont));
 		page.add(createListIngredients(recipe));
-		page.add(new Paragraph("Pasos", categoryFont));
+		page.add(new Paragraph("Steps", categoryFont));
 		page.add(createListInSteps(recipe));
 		return page;
 	}
 
+	/**
+	 * Creates the list ingredients.
+	 *
+	 * @param recipe the recipe
+	 * @return the list
+	 */
 	private List createListIngredients(final Recipe recipe) {
 		final List list = new List(List.UNORDERED);
 		ListItem itemList;
 		for (final Ingredient ingredient : recipe.getIngredients()) {
-			itemList = new ListItem(ingredient.getName() + " - " + ingredient.getAmount());
+			itemList = new ListItem(String.format("%s - %s", ingredient.getName(),ingredient.getAmount()));
 			itemList.setAlignment(Element.ALIGN_JUSTIFIED);
 			list.add(itemList);
 		}
 		return list;
 	}
 
+	/**
+	 * Creates the list in steps.
+	 *
+	 * @param recipe the recipe
+	 * @return the list
+	 */
 	private List createListInSteps(final Recipe recipe) {
 		final List list = new List(List.ORDERED);
 		ListItem itemList;
@@ -84,6 +135,12 @@ public class Pdf {
 		return list;
 	}
 
+	/**
+	 * Adds the metadata.
+	 *
+	 * @param metadata the metadata
+	 * @param document the document
+	 */
 	private void addMetadata(final PdfMetadata metadata, final Document document) {
 		document.addTitle(metadata.getTitle());
 		document.addAuthor(metadata.getAuthor());

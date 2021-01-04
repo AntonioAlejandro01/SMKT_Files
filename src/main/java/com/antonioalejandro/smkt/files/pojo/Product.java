@@ -1,3 +1,10 @@
+/*
+ * @Author AntonioAlejandro01
+ * 
+ * @link http://antonioalejandro.com
+ * @link https://github.com/AntonioAlejandro01/SMKT_Users
+ * 
+ */
 package com.antonioalejandro.smkt.files.pojo;
 
 import java.util.Arrays;
@@ -5,85 +12,66 @@ import java.util.List;
 
 import com.antonioalejandro.utils.excel.ExcelData;
 import com.antonioalejandro.utils.excel.interfaces.IExcelObject;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * 
+ * The class Product
+ *
+ */
+@Getter
+@Setter
+@ToString
 @JsonIgnoreProperties({ "CATEGORIES", "fields", "headers" })
 public class Product implements IExcelObject {
 
-	private final static String[] CATEGORIES = new String[] { "Comida", "Menaje", "Limpieza", "Utensilios de limpieza",
+	/** The Constant CATEGORIES. */
+	private static final String[] CATEGORIES = new String[] { "Comida", "Menaje", "Limpieza", "Utensilios de limpieza",
 			"Otros" };
+
+	/** The id. */
+	@JsonProperty
 	private String id;
+
+	/** The name. */
+	@JsonProperty
 	private String name;
+
+	/** The category. */
+	@JsonProperty
 	private Integer category;
+
+	/** The code key. */
+	@JsonProperty
 	private String codeKey;
+
+	/** The price. */
+	@JsonProperty
 	private Double price;
+
+	/** The amount. */
+	@JsonProperty
 	private Integer amount;
 
-	@JsonCreator
-	public Product(final String id, final String name, final Integer category, final String codeKey, final Double price,
-			final Integer amount) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.category = category;
-		this.codeKey = codeKey;
-		this.price = price;
-		this.amount = amount;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(final String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(final String name) {
-		this.name = name;
-	}
-
-	public Integer getCategory() {
-		return category;
-	}
-
-	public void setCategory(final Integer category) {
-		this.category = category;
-	}
-
-	public String getCodeKey() {
-		return codeKey;
-	}
-
-	public void setCodeKey(final String codeKey) {
-		this.codeKey = codeKey;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(final Double price) {
-		this.price = price;
-	}
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(final Integer amount) {
-		this.amount = amount;
-	}
-
+	/**
+	 * Gets the headers.
+	 *
+	 * @return the headers
+	 */
 	public static List<String> getHeaders() {
 		return Arrays.asList("ID", "Nombre", "Categoría", "Código", "Precio", "Cantidad", "Total");
 	}
 
+	/**
+	 * Obtain fields.
+	 *
+	 * @return the list
+	 */
 	@Override
 	public List<ExcelData> obtainFields() {
 		return Arrays.asList(new ExcelData(id), new ExcelData(name), new ExcelData(CATEGORIES[category]),
