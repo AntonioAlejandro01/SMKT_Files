@@ -1,5 +1,5 @@
 # SMKT_FILES
-MS that it's serve excel and pdf files
+MS that it serve excel and pdf files
 
 ![](smktfiles.png)
 ## Others Microservices
