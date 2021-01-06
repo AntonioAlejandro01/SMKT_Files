@@ -24,6 +24,7 @@ import com.antonioalejandro.smkt.files.pdf.Pdf;
 import com.antonioalejandro.smkt.files.pdf.PdfMetadata;
 import com.antonioalejandro.smkt.files.pojo.Product;
 import com.antonioalejandro.smkt.files.pojo.Recipe;
+import com.antonioalejandro.smkt.files.utils.Constants;
 import com.antonioalejandro.utils.excel.ExcelBook;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,10 +54,10 @@ public class FilesController {
 	 * @param products the products
 	 * @return the excel
 	 */
-	@PostMapping(value = "/excel", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+	@PostMapping(value = "/excel", produces = Constants.PRODUCES_XSL)
 	public ResponseEntity<byte[]> getExcel(@RequestBody final List<Product> products) {
 		log.info("Call /excel");
-		final ExcelBook<Product> excel = new ExcelBook<>("Products");
+		final ExcelBook<Product> excel = new ExcelBook<>(Constants.SPREADSHEET_NAME);
 		excel.setBlankSheet();
 		excel.setHeaders(Product.getHeaders());
 		excel.setData(products);
@@ -80,7 +81,7 @@ public class FilesController {
 	public ResponseEntity<byte[]> getPdf(@RequestBody final Recipe recipe) {
 		log.info("Call /pdf  --> id:{}", recipe.getId());
 		try {
-			byte[] pdf = pdfCreator.processPdf(new PdfMetadata("Recipe " + recipe.getTitle()), recipe);
+			byte[] pdf = pdfCreator.processPdf(new PdfMetadata(String.format(Constants.TEMPLATE_TITLE_RECIPE_PDF, recipe.getTitle())), recipe);
 			return new ResponseEntity<>(pdf, HttpStatus.OK);
 		} catch (final Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -97,7 +98,7 @@ public class FilesController {
 	public ResponseEntity<byte[]> getPdfAll(@RequestBody final Recipe[] recipes) {
 		log.info("Call /pdf/all");
 		try {
-			byte[] pdf = pdfCreator.processPdf(new PdfMetadata("COOKBOOK"), recipes);
+			byte[] pdf = pdfCreator.processPdf(new PdfMetadata(Constants.COOKBOOK_NAME), recipes);
 			return new ResponseEntity<>(pdf, HttpStatus.OK);
 		} catch (final Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

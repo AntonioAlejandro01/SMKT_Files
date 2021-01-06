@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 
 import com.antonioalejandro.smkt.files.pojo.Ingredient;
 import com.antonioalejandro.smkt.files.pojo.Recipe;
+import com.antonioalejandro.smkt.files.utils.Constants;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -29,16 +30,16 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class Pdf {
 	
 	/** The Constant chapterFont. */
-	private static final Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLDITALIC);
+	private static final Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, Constants.SIZE_CHAPTER_FONT, Font.BOLDITALIC);
 	
 	/** The Constant paragraphFont. */
-	private static final Font paragraphFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
+	private static final Font paragraphFont = FontFactory.getFont(FontFactory.HELVETICA, Constants.SIZE_P_FONT, Font.NORMAL);
 
 	/** The Constant categoryFont. */
-	private static final Font categoryFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+	private static final Font categoryFont = new Font(Font.FontFamily.TIMES_ROMAN, Constants.SIZE_CATEGORY_FONT, Font.BOLD);
 	
 	/** The Constant subcategoryFont. */
-	private static final Font subcategoryFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
+	private static final Font subcategoryFont = new Font(Font.FontFamily.TIMES_ROMAN, Constants.SIZE_SUBCATEGORY_FONT, Font.BOLD);
 
 	/**
 	 * Process pdf.
@@ -93,10 +94,10 @@ public class Pdf {
 		final Chapter page = new Chapter(paragraph, 1);
 
 		page.setNumberDepth(0);
-		page.add(new Paragraph(String.format("Time: %s h", recipe.getTime()), subcategoryFont));
-		page.add(new Paragraph("Ingredients", categoryFont));
+		page.add(new Paragraph(String.format(Constants.TEMPLATE_P_TIME, recipe.getTime()), subcategoryFont));
+		page.add(new Paragraph(Constants.P_INGREDIENTS, categoryFont));
 		page.add(createListIngredients(recipe));
-		page.add(new Paragraph("Steps", categoryFont));
+		page.add(new Paragraph(Constants.P_STEPS, categoryFont));
 		page.add(createListInSteps(recipe));
 		return page;
 	}
@@ -111,7 +112,7 @@ public class Pdf {
 		final List list = new List(List.UNORDERED);
 		ListItem itemList;
 		for (final Ingredient ingredient : recipe.getIngredients()) {
-			itemList = new ListItem(String.format("%s - %s", ingredient.getName(),ingredient.getAmount()));
+			itemList = new ListItem(String.format(Constants.TEMPLATE_ITEM_LIST_INGREDIENT, ingredient.getName(),ingredient.getAmount()));
 			itemList.setAlignment(Element.ALIGN_JUSTIFIED);
 			list.add(itemList);
 		}

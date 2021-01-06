@@ -10,6 +10,7 @@ package com.antonioalejandro.smkt.files.pojo;
 import java.util.Arrays;
 import java.util.List;
 
+import com.antonioalejandro.smkt.files.utils.Constants;
 import com.antonioalejandro.utils.excel.ExcelData;
 import com.antonioalejandro.utils.excel.interfaces.IExcelObject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,8 +32,8 @@ import lombok.ToString;
 public class Product implements IExcelObject {
 
 	/** The Constant CATEGORIES. */
-	private static final String[] CATEGORIES = new String[] { "Comida", "Menaje", "Limpieza", "Utensilios de limpieza",
-			"Otros" };
+	private static final String[] CATEGORIES = new String[] { Constants.CATEGORY_FOOD, Constants.CATEGORY_KITCHENWARE,
+			Constants.CATEGORY_CLEANING, Constants.CATEGORY_CLEANING_TOOLS, Constants.CATEGORY_OTHERS };
 
 	/** The id. */
 	@JsonProperty
@@ -64,7 +65,9 @@ public class Product implements IExcelObject {
 	 * @return the headers
 	 */
 	public static List<String> getHeaders() {
-		return Arrays.asList("ID", "Nombre", "Categoría", "Código", "Precio", "Cantidad", "Total");
+		return Arrays.asList(Constants.FIELD_ID, Constants.FIELD_NAME, Constants.FIELD_CATEGORY, Constants.FIELD_CODE,
+				Constants.FIELD_PRICE, Constants.FIELD_AMOUNT, Constants.FIELD_TOTAL);
+
 	}
 
 	/**

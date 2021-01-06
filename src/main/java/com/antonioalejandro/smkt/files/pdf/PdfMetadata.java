@@ -3,6 +3,8 @@ package com.antonioalejandro.smkt.files.pdf;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.antonioalejandro.smkt.files.utils.Constants;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,10 +23,10 @@ public class PdfMetadata {
 	public PdfMetadata(final String title) {
 		super();
 		this.title = title;
-		this.subject = "FOOD";
+		this.subject = Constants.PDF_METADATA_SUBJECT;
 		this.keywords = new ArrayList<>();
-		this.creator = "SMKT-FILES";
-		this.author = "SMKT-FILES";
+		this.creator = Constants.PDF_METADATA_CREATOR;
+		this.author = Constants.PDF_METADATA_AUTHOR;
 	}
 
 }
